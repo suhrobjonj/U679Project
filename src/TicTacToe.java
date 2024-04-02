@@ -1,3 +1,4 @@
+import java.awt.Color;
 public class TicTacToe {
     private Space[][] grid;
     private String occupier = "0";
@@ -49,9 +50,8 @@ public class TicTacToe {
 
     public void printRow(int r) {
         for (Space s : grid[r]) {
-            System.out.print(s.getSymbol());
+            System.out.print(" " + s.getSymbol() + " ");
         }
+        System.out.print("|");
     }
-
-
 }

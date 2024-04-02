@@ -1,6 +1,7 @@
 public class Main {
     public static void main(String[] args) {
-        Grid grid = new Grid();
+        SuperTicTacToe game = new SuperTicTacToe();
+        game.Play();
 
     }
 }
