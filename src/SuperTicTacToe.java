@@ -25,18 +25,21 @@ public class SuperTicTacToe {
         scan.nextLine();
         System.out.println("Select box (1-9): ");
         b = scan.nextInt();
+        grid[b -1].setColor(Color.GREEN);
         while (!gameOver) {
             printGrid();
             System.out.println("Player 1");
             System.out.println("Select position (1-9): ");
             p = scan.nextInt();
             grid[b - 1].Move(p, "X");
-            printGrid();
             System.out.println("Player 2: ");
             b = p;
+            grid[b - 1].setColor(Color.GREEN);
+            printGrid();
             p = scan.nextInt();
             grid[b - 1].Move(p, "0");
             b = p;
+            grid[b - 1].setColor(Color.GREEN);
         }
     }
 

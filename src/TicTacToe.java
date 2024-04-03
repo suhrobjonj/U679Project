@@ -1,7 +1,8 @@
-import java.awt.Color;
+
 public class TicTacToe {
     private Space[][] grid;
     private String occupier = "0";
+    private String color = Color.RESET;
 
     public TicTacToe() {
         grid = new Space[3][3];
@@ -12,6 +13,10 @@ public class TicTacToe {
                 counter++;
             }
         }
+    }
+
+    public void setColor(String c) {
+        color = c;
     }
 
     public boolean Move(int pos, String symbol) {
@@ -50,8 +55,17 @@ public class TicTacToe {
 
     public void printRow(int r) {
         for (Space s : grid[r]) {
-            System.out.print(" " + s.getSymbol() + " ");
+            if (s.getSymbol().equals("X")) {
+                System.out.print(Color.BLUE + " " + s.getSymbol() + " " + Color.RESET);
+            } else if (s.getSymbol().equals("0")) {
+                System.out.print(Color.RED + " " + s.getSymbol() + " " + Color.RESET);
+            } else {
+                System.out.print(color + " " + s.getSymbol() + " " + Color.RESET);
+            }
         }
         System.out.print("|");
+        if (r == 2) {
+            color = Color.RESET;
+        }
     }
 }
