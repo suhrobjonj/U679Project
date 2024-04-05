@@ -10,7 +10,8 @@ public class Space {
         return symbol;
     }
 
-    public void setSymbol(String symbol) {
-        this.symbol = symbol;
+
+    public void print(String color) {
+        System.out.print(color + " " + symbol + " " + Color.RESET);
     }
 }
