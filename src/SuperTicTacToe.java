@@ -4,16 +4,20 @@ public class SuperTicTacToe {
     private boolean gameOver;
     private TicTacToe currentBoard;
     private Space currentTurn;
-    private TicTacToe[] grid = new TicTacToe[9];
+    private TicTacToe[] mainBoard;
     public Scanner scan;
+
+    //Constructor
     public SuperTicTacToe () {
-       scan = new Scanner(System.in);
-       for (int i = 0;i < 9;i++) {
-           grid[i] = new TicTacToe(i + 1);
-       }
+        mainBoard = new TicTacToe[9]; //Array of 9 individual TicTacToe objects
+        scan = new Scanner(System.in);
+        for (int i = 0;i < 9;i++) {
+           mainBoard[i] = new TicTacToe(i + 1); //Numbering the objects
+        }
     }
 
-    public void Play() {
+    //game logic
+    public void play() {
         int pos = 0;
         currentTurn = new O();
         System.out.println("Welcome to Super TicTacToe!");
@@ -21,7 +25,7 @@ public class SuperTicTacToe {
         System.out.print("Select board (1-9): ");
         setCurrentBoard(scan.nextInt());
         while (!gameOver) {
-            printGrid();
+            printMainBoard();
             System.out.println("Select position (1-9): ");
             printCurrentTurn();
             pos = scan.nextInt();
@@ -29,23 +33,24 @@ public class SuperTicTacToe {
                 printCurrentTurn();
                 pos = scan.nextInt();
             }
-            currentBoard.Move(pos, currentTurn);
+            currentBoard.move(pos, currentTurn);
             setCurrentBoard(pos);
             checkGameOver();
         }
-        printGrid();
+        printMainBoard();
         changeTurn();
         currentTurn.print(Color.RESET);
         System.out.print(" WINS!!!");
     }
 
-    private void printGrid() {
+    private void printMainBoard() {
         for (int i = 0;i < 9;i += 3) {
             for (int r = 0;r < 3;r++) {
                 System.out.print("|");
-                grid[i].printRow(r);
-                grid[i + 1].printRow(r);
-                grid[i + 2].printRow(r);
+                //printing the rows of the first 3 games on the same line
+                mainBoard[i].printRow(r);
+                mainBoard[i + 1].printRow(r);
+                mainBoard[i + 2].printRow(r);
                 System.out.println();
             }
             System.out.println();
@@ -56,15 +61,16 @@ public class SuperTicTacToe {
         for (int i = 0;i < 9;i += 3) {
             for (int r = 0;r < 3;r++) {
                 System.out.print("|");
-                grid[i].printBoardNumber(r);
-                grid[i + 1].printBoardNumber(r);
-                grid[i + 2].printBoardNumber(r);
+                mainBoard[i].printBoardNumber(r);
+                mainBoard[i + 1].printBoardNumber(r);
+                mainBoard[i + 2].printBoardNumber(r);
                 System.out.println();
             }
             System.out.println();
         }
     }
 
+    //alternate between X and O objects
     private void changeTurn() {
         if (currentTurn instanceof X) {
             currentTurn = new O();
@@ -81,40 +87,42 @@ public class SuperTicTacToe {
         }
     }
 
+    //setting the next board
     private void setCurrentBoard(int board) {
         changeTurn();
-        if (!grid[board - 1].getGameOver()) {
-            currentBoard = grid[board - 1];
+        if (!mainBoard[board - 1].getGameOver()) {
+            currentBoard = mainBoard[board - 1];
         } else {
             printBoardNumbers();
             System.out.println("Select board");
             printCurrentTurn();
             board = scan.nextInt();
-            while (grid[board - 1].getGameOver()) {
+            while (mainBoard[board - 1].getGameOver()) {
                 System.out.println(Color.YELLOW + "BOARD IS OCCUPIED!" + Color.RESET);
                 System.out.println("Select board");
                 printCurrentTurn();
                 board = scan.nextInt();
             }
-            currentBoard = grid[board - 1];
+            currentBoard = mainBoard[board - 1];
         }
         currentBoard.setColor(Color.GREEN);
     }
 
+    //checking for wins in rows, columns, and diagonals
     private void checkGameOver() {
         for (int i = 0;i < 9;i += 3) {
-            if (grid[i].getGameOver() && grid[i + 1].getGameOver() && grid[i + 2].getGameOver()) {
+            if (mainBoard[i].getGameOver() && mainBoard[i + 1].getGameOver() && mainBoard[i + 2].getGameOver()) {
                 gameOver = true;
             }
         }
         for (int i = 0;i < 3;i += 1) {
-            if (grid[i].getGameOver() && grid[i + 3].getGameOver() && grid[i + 6].getGameOver()) {
+            if (mainBoard[i].getGameOver() && mainBoard[i + 3].getGameOver() && mainBoard[i + 6].getGameOver()) {
                 gameOver = true;
             }
         }
-        if (grid[4].getGameOver() && grid[0].getGameOver() && grid[8].getGameOver()) {
+        if (mainBoard[4].getGameOver() && mainBoard[0].getGameOver() && mainBoard[8].getGameOver()) {
             gameOver = true;
-        } else if (grid[4].getGameOver() && grid[2].getGameOver() && grid[6].getGameOver()) {
+        } else if (mainBoard[4].getGameOver() && mainBoard[2].getGameOver() && mainBoard[6].getGameOver()) {
             gameOver = true;
         }
     }

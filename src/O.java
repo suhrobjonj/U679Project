@@ -7,6 +7,7 @@ public class O extends Space {
         System.out.print(Color.RED + "O: " + Color.RESET);
     }
 
+    //printing O in red
     @Override
     public void print(String color) {
         System.out.print(Color.RED + " O " + Color.RESET);

@@ -1,12 +1,12 @@
 
 public class TicTacToe {
     private Space[][] board;
-    private Space[][] boardNumber;
+    private Space[][] boardNumber; //used to show the number of the board
     private boolean gameOver = false;
     private String color = Color.RESET;
 
     public TicTacToe(int number) {
-        board = new Space[3][3];
+        board = new Space[3][3];//3 by 3 array of Space objects (& subclasses)
         boardNumber = new Space[3][3];
         int counter = 1;
         for (int r = 0;r < board.length;r++) {
@@ -25,13 +25,34 @@ public class TicTacToe {
 
     public void setColor(String c) {
         color = c;
-    }
+    }//Setting color of board (green when board is being played)
 
     public boolean getGameOver() {
         return gameOver;
     }
 
-    public void Move(int pos, Space space) {
+    public void printRow(int r) { //printing the rows to visually make everything look like TicTacToe
+        for (Space s : board[r]) {
+            s.print(color); //this is where Overridden method in X and O objects comes handy
+        }
+        System.out.print("|" + Color.RESET);
+        if (r == 2 && !gameOver) {
+            color = Color.RESET;
+        }
+    }
+
+    public void printBoardNumber(int r) {
+        if (!gameOver) {
+            for (Space s : boardNumber[r]) {
+                s.print(Color.YELLOW);
+            }
+            System.out.print("|" + Color.RESET);
+        } else {
+            printRow(r);
+        }
+    }
+
+    public void move(int pos, Space space) { //changes Space to X or O object when a player moves
         for (int r = 0;r < 3;r++) {
             for (int c = 0;c < 3;c++) {
                 if (board[r][c].getSymbol().equals("" + pos)) {
@@ -70,34 +91,12 @@ public class TicTacToe {
         }
     }
 
-    public void winBoard(Space s) {
+    private void winBoard(Space s) {
         for (int r = 0;r < board.length;r++) {
             for (int c = 0;c < 3;c++) {
                 board[r][c] = s;
             }
         }
         gameOver = true;
-    }
-
-    public void printRow(int r) {
-        for (Space s : board[r]) {
-            s.print(color);
-        }
-        System.out.print("|" + Color.RESET);
-        if (r == 2 && !gameOver) {
-            color = Color.RESET;
-        }
-    }
-
-    public void printBoardNumber(int r) {
-        if (!gameOver) {
-            for (Space s : boardNumber[r]) {
-                s.print(Color.YELLOW);
-            }
-            System.out.print("|" + Color.RESET);
-        } else {
-            printRow(r);
-        }
-
     }
 }
