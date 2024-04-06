@@ -2,7 +2,7 @@
 public class TicTacToe {
     private Space[][] board;
     private Space[][] boardNumber; //used to show the number of the board
-    private boolean gameOver = false;
+    private int gameOver = 0;
     private String color = Color.RESET;
 
     public TicTacToe(int number) {
@@ -27,7 +27,7 @@ public class TicTacToe {
         color = c;
     }//Setting color of board (green when board is being played)
 
-    public boolean getGameOver() {
+    public int getGameOver() {
         return gameOver;
     }
 
@@ -36,13 +36,13 @@ public class TicTacToe {
             s.print(color); //this is where Overridden method in X and O objects comes handy
         }
         System.out.print("|" + Color.RESET);
-        if (r == 2 && !gameOver) {
+        if (r == 2 && gameOver == 0) {
             color = Color.RESET;
         }
     }
 
     public void printBoardNumber(int r) {
-        if (!gameOver) {
+        if (gameOver == 0) {
             for (Space s : boardNumber[r]) {
                 s.print(Color.YELLOW);
             }
@@ -97,6 +97,10 @@ public class TicTacToe {
                 board[r][c] = s;
             }
         }
-        gameOver = true;
+        if (s instanceof X) {
+            gameOver = 1;
+        } else {
+            gameOver = 2;
+        }
     }
 }
