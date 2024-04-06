@@ -90,14 +90,14 @@ public class SuperTicTacToe {
     //setting the next board
     private void setCurrentBoard(int board) {
         changeTurn();
-        if (!mainBoard[board - 1].getGameOver()) {
+        if (mainBoard[board - 1].getGameOver() == 0) {
             currentBoard = mainBoard[board - 1];
-        } else {
+        } else if (!gameOver) {
             printBoardNumbers();
             System.out.println("Select board");
             printCurrentTurn();
             board = scan.nextInt();
-            while (mainBoard[board - 1].getGameOver() == 0) {
+            while (mainBoard[board - 1].getGameOver() > 0) {
                 System.out.println(Color.YELLOW + "BOARD IS OCCUPIED!" + Color.RESET);
                 System.out.println("Select board");
                 printCurrentTurn();
@@ -111,18 +111,18 @@ public class SuperTicTacToe {
     //checking for wins in rows, columns, and diagonals
     private void checkGameOver() {
         for (int i = 0;i < 9;i += 3) {
-            if (mainBoard[i].getGameOver() == mainBoard[i + 1].getGameOver() && mainBoard[i].getGameOver() ==  mainBoard[i + 2].getGameOver()) {
+            if (mainBoard[i].getGameOver() > 0 && mainBoard[i].getGameOver() == mainBoard[i + 1].getGameOver() && mainBoard[i].getGameOver() ==  mainBoard[i + 2].getGameOver()) {
                 gameOver = true;
             }
         }
         for (int i = 0;i < 3;i += 1) {
-            if (mainBoard[i].getGameOver() == mainBoard[i + 3].getGameOver() && mainBoard[i].getGameOver() == mainBoard[i + 6].getGameOver()) {
+            if (mainBoard[i].getGameOver() > 0 && mainBoard[i].getGameOver() == mainBoard[i + 3].getGameOver() && mainBoard[i].getGameOver() == mainBoard[i + 6].getGameOver()) {
                 gameOver = true;
             }
         }
-        if (mainBoard[4].getGameOver() == mainBoard[0].getGameOver() && mainBoard[4].getGameOver() == mainBoard[8].getGameOver()) {
+        if (mainBoard[4].getGameOver() > 0 && mainBoard[4].getGameOver() == mainBoard[0].getGameOver() && mainBoard[4].getGameOver() == mainBoard[8].getGameOver()) {
             gameOver = true;
-        } else if (mainBoard[4].getGameOver() == mainBoard[2].getGameOver() && mainBoard[4].getGameOver() == mainBoard[6].getGameOver()) {
+        } else if (mainBoard[4].getGameOver() > 0 && mainBoard[4].getGameOver() == mainBoard[2].getGameOver() && mainBoard[4].getGameOver() == mainBoard[6].getGameOver()) {
             gameOver = true;
         }
     }
